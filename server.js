@@ -10,6 +10,9 @@ const auth = require('./auth.js');
 
 const app = express();
 
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 fccTesting(app); //For FCC testing purposes
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use(express.json());
@@ -32,6 +35,10 @@ myDB(async (client) => {
 
 	auth(app, myDataBase);
 	routes(app, myDataBase);
+
+	io.on('connection', socket => {
+		console.log('A user has connected');
+	});
 }).catch((e) => {
 	app.route('/').get((req, res) => {
 		res.render('index', { title: e, message: 'Unable to connect to database' });
@@ -39,6 +46,7 @@ myDB(async (client) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+http.listen(PORT, () => {
 	console.log('Listening on port ' + PORT);
 });
