@@ -38,7 +38,8 @@ module.exports = function (app, myDataBase) {
 			{
 				clientID: process.env.GITHUB_CLIENT_ID,
 				clientSecret: process.env.GITHUB_CLIENT_SECRET,
-				callbackURL: process.env.GITHUB_CALLBACK_URL,
+				callbackURL:
+					'https://advanced-node-uj88.onrender.com/auth/github/callback',
 			},
 			(accessToken, refreshToken, profile, cb) => {
 				console.log(profile);
