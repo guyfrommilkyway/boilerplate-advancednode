@@ -2,6 +2,10 @@ $(document).ready(function () {
 	/*global io*/
 	let socket = io();
 
+	socket.io('user count', function (data) {
+		console.log(data);
+	});
+
 	socket.on('user', function (data) {
 		$('#num-users').text(data.currentUsers + ' users online');
 		let message =
