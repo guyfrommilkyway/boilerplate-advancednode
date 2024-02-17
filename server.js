@@ -69,16 +69,12 @@ myDB(async (client) => {
 
 	io.on('connection', (socket) => {
 		++currentUsers;
-
 		io.emit('user count', currentUsers);
-
 		console.log('A user has connected');
 
 		socket.on('disconnect', () => {
 			console.log('A user has disconnected');
-
 			--currentUsers;
-
 			io.emit('user count', currentUsers);
 		});
 	});
